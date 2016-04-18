@@ -135,7 +135,7 @@
                 
                 <div class="menu">
                    <div class="dr"><span></span></div>
-                   <a href="<?php echo site_url('admin/NewRegistration')?>"><span class="icon-picture"></span> Registration</a>
+                   <a href="<?php echo site_url('branch_manager_controller/NewRegistration')?>"><span class="icon-picture"></span> Registration</a>
                    <div class="dr"><span></span></div>
                     <a href="videos.html"><span class="icon-film"></span> Edit Registration</a>
                     <div class="dr"><span></span></div>

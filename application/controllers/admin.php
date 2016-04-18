@@ -23,7 +23,7 @@ class Admin extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url','form');
 		$this->load->model('admin_model');
-		//$this->load->database()///;
+		//$this->load->database();
 		$this->load->library('session');
 		
 		
@@ -314,17 +314,10 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	public function NewRegistration()
+	public function NewStudentEntry()
 	{
-		$user=$this->session->userdata("userid");
-		if($user){
-			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
-			$this->load->view('header',$data);
-			$this->load->view('Registration');
-			$this->load->view('js');
-		}else{
-			redirect('admin/index');
-		}
+		$this->admin_model->addnewstudent();
+		//redirect("Branch_manager_controller/NewRegistration");
 	}
 	
 	public function StudentFeePayment()
@@ -470,11 +463,7 @@ class Admin extends CI_Controller {
 		redirect("admin/newFaculty");
 	}
 	
-	public function NewRegi()
-	{
-		$this->admin_model->addnewFaculty();
-		redirect("admin/NewRegistration");
-	}
+	
 	
 	public function FeePayment()
 	{

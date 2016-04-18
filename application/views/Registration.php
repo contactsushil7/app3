@@ -24,7 +24,7 @@
    
     <div class="content" >
       <div class="row-fluid" style="overflow:x;">
-        <form action="<?php echo  site_url('admin/NewRegi') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo  site_url('branch_manager_controller/NewRegi') ?>" method="post" enctype="multipart/form-data">
             <div class="">                
 
                 <div class="widget">
@@ -36,20 +36,11 @@
 
                         <div class="row-form">                     
                             <div class="span2"><b>First Name </b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span3"><input type="text" name="fname" placeholder="Enter Your Fname"></div>
                       		<div class="span2"><b>Last Name </b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span3"><input type="text" name="lname" placeholder="Enter Your Lname"></div>
                       		
                         </div>
-						
-						 <div class="row-form">                     
-                            <div class="span2"><b>Father's Name </b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
-                      		<div class="span2"><b>Mother's Name </b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
-                      		
-                        </div>
-						
 						
 						<div class="row-form"> 
 							<div class="span2"><b>Gender </b></div>
@@ -82,31 +73,31 @@
 						
 						<div class="row-form"> 
 							<div class="span2"><b>Academic Year </b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span3"><input type="text" name="AcademicYear" placeholder="Accademic Year"></div>
 							
                             <div class="span2"><b>Date of Birthday </b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span3"><input type="text" name="dob" placeholder="Date of Birthday"></div>
                       	</div>
 						
 						<div class="row-form"> 
 							
                             <div class="span2"><b>Mother Tongue</b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span3"><input type="text" name="MotherTongue" placeholder="Ex: Hindi ,English"></div>
                       		<div class="span2"><b>Religion</b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span3"><input type="text" name="Religion" placeholder="Ex : Hinddu "></div>
                       		
                         </div>
 						
 						<div class="row-form">                     
                             <div class="span2"><b>Blood Group</b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span3"><input type="text" name="BloodGroup" placeholder="Ex : A+ "></div>
                       		
                         </div>
 						<div class="row-form">
                             <div class="span2"><b>Temporary address</b></div>
-                            <div class="span3"><textarea  name="temp" placeholder="Placeholder example"></textarea></div>
+                            <div class="span3"><textarea  name="temp" placeholder="Ex : Road number 5"></textarea></div>
 							<div class="span2"><b>Permanent address </b></div>
-                            <div class="span3"><textarea  name="permanent"placeholder="Placeholder example"></textarea></div>
+                            <div class="span3"><textarea  name="permanent"placeholder="Ex: Azamgarh"></textarea></div>
                         
                         </div>
 						
@@ -153,25 +144,25 @@
 					 <h4 align="centre">Details of Last School :</h4><br>
                         <div class="row-form">                     
                             <div class="span2"><b>School Name</b></div>
-                            <div class="span4"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span4"><input type="text" name="schoolname" placeholder="Ex: BHU"></div>
                       		<div class="span2"><b>Parentage</b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Percentage"></div>                      		
+                            <div class="span3"><input type="text" name="Percentage" placeholder="Percentage"></div>                      		
                         </div>						
 						 <div class="row-form">                     
                             <div class="span2"><b>School Address</b></div>
-                            <div class="span4"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span4"><input type="text" name="SchoolAddress" placeholder="School Address"></div>
 							<div class="span2"><b>City</b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>                     		
+                            <div class="span3"><input type="text" name="city" placeholder="Ex : Hyderabad"></div>                     		
                         </div>						
 						<div class="row-form">
 							<div class="span2"><b>State</b></div>
-                            <div class="span4"><input type="text" name="name" placeholder="Enter staff name"></div>                      		
+                            <div class="span4"><input type="text" name="state" placeholder="Ex : Utter Predesh"></div>                      		
 							<div class="span2"><b>Country</b></div>                          
-							 <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>                         												
+							 <div class="span3"><input type="text" name="country" placeholder="Ex : India"></div>                         												
 						</div>											
 						<div class="row-form">
 							<div class="span2"><b>Telephone</b></div>
-							<div class="span4"><input type="text" name="name" placeholder="Enter staff name"></div>
+							<div class="span4"><input type="text" name="telephone" placeholder="Ex : 9616870830"></div>
                       	</div>							
 					</div>
                 </div>
@@ -186,33 +177,33 @@
 					  <h4 align="centre">Father's/ Mother's Details(#Guardian):</h4><br>
                         <div class="row-form">                     
                             <div class="span3"><b>Father's Name</b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span3"><input type="text" name="fathername" placeholder="Ex : Shiv"></div>
                       		<div class="span3"><b>Mother's Name</b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Percentage"></div>                      		
+                            <div class="span3"><input type="text" name="mothername" placeholder="Ex : Minni "></div>                      		
                         </div>						
 						 <div class="row-form">                     
                             <div class="span3"><b>Father's Qualification</b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
+                            <div class="span3"><input type="text" name="fqualification" placeholder="Ex : MCA"></div>
 							<div class="span3"><b>Mother's Qualification</b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>                     		
+                            <div class="span3"><input type="text" name="mqualification" placeholder="Ex : B.Ed"></div>                     		
                         </div>						
 						<div class="row-form">
 							<div class="span3"><b>Father's Occupation </b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>                      		
+                            <div class="span3"><input type="text" name="foccupation" placeholder="Ex : S/W"></div>                      		
 							<div class="span3"><b>Mother's Occupation</b></div>                          
-							 <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>                         												
+							 <div class="span3"><input type="text" name="moccupation" placeholder="Ex : Teacher "></div>                         												
 						</div>	
 							<div class="row-form">
 							<div class="span3"><b>Annual Income </b></div>
-                            <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>                      		
+                            <div class="span3"><input type="text" name="aincome" placeholder="Ex : 750000"></div>                      		
 							<div class="span3"><b>Telephone</b></div>                          
-							 <div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>                         												
+							 <div class="span3"><input type="text" name="ftelephone" placeholder="Ex : 9616870830"></div>                         												
 						</div>	
 						<div class="row-form">
 							<div class="span3"><b>Mobile</b></div>
-							<div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>
+							<div class="span3"><input type="text" name="fmobile" placeholder="Ex : 7075360671"></div>
 							<div class="span3"><b>Email</b></div>
-							<div class="span3"><input type="text" name="name" placeholder="Enter staff name"></div>                 
+							<div class="span3"><input type="text" name="femail" placeholder="Ex : Shiv@gmail.com"></div>                 
                       	</div>							
 					</div>
                 </div>

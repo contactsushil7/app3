@@ -78,7 +78,7 @@
                     <div class="button">
                         <a href="#">
                             <span class="icomg-mail"></span>
-                            <span class="text">Mail boxs</span>
+                            <span class="text">Mail box</span>
                         </a>
                         <ul class="sub">                        
                             <li><a href="#" class="tip" title="New"><span class="icon-envelope"></span></a></li>
