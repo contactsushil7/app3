@@ -77,8 +77,8 @@ class Admin extends CI_Controller {
 				$branch_id=$row['branch_id'];
 			}
 			if($role_type=='Branch_Admin'){
-				$result=$this->admin_model->branchDetails($email);
-				foreach ($result as $row)
+				$results=$this->admin_model->branchDetails($email);
+				foreach ($results as $row)
 				{
 					$branch_id=$row['branch_id'];
 					$this->session->set_userdata('branch_id',$branch_id);
@@ -219,7 +219,7 @@ class Admin extends CI_Controller {
 	{
 		$user=$this->session->userdata("userid");
 		$role_type=$this->session->userdata("role_type");
-		if($user && $role_type=="Branch_Admin"){
+		if($user !="" && $role_type=="Branch_Admin"){
 			$branch_id=$this->session->userdata("branch_id");
 			
 			$data['teachers']=$this->admin_model->AllTeacher($branch_id);

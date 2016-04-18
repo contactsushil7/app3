@@ -16,7 +16,7 @@
 | environments.
 |
 */
-$config['base_url'] = 'http://localhost/ap/';
+$config['base_url'] = 'http://localhost/app3/';
 
 /*
 |--------------------------------------------------------------------------

@@ -58,4 +58,5 @@
     <script type='text/javascript' src='<?php echo base_url("js/plugins.js");?>'></script>
     <script type='text/javascript' src='<?php echo base_url("js/charts.js");?>'></script>
     <script type='text/javascript' src='<?php echo base_url("js/actions.js");?>'></script>
+     <script type='text/javascript' src='<?php echo base_url("js/SMS_app.js");?>'></script>
     
