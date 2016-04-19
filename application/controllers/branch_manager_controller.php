@@ -391,16 +391,13 @@ public function deleteStudent()
 		//echo "delete";
 		$application_id=$this->input->post("id");
 		$details=$this->admin_model->studentMail($application_id);
-		$status=$this->branch_manager_model->deleteStudent($application_id);
-		if($status=="true")
-		{
-			foreach ($details as $row) {
+		foreach ($details as $row) {
 				# code...]
 				$urls=$row('url');
 				unlink($urls);
 			}
-		}
-		echo "hello";
+		$status=$this->branch_manager_model->deleteStudent($application_id);
+		
 	}
 
 
@@ -430,5 +427,61 @@ public function deleteStudent()
 }
 
 
+
+
+
+// Student List By Class
+
+function Student_by_grade()
+{
+
+	$student =$this->branch_manager_model->Student_by_grade();
+	$output="";
+	foreach ($student as $row) {
+		# code...
+$output.='<tr class="'."s".$row['student_id'].'">
+                                        <td><input type="checkbox" name="order[]" value="'.$row['student_id'].'"/></td>
+                                       <td><a href="#bModal" data-toggle="modal" id="'.$row['student_id'].'"  onClick="viewStudentDetails(this.id)">'.$row["fname"]." ". $row["lname"].'</a></td>
+										<td>'.$row["father_name"].'</a></td>
+										<td>'.$row["seeking_grade"].'</td>
+										<td>'.$row["email"].'</span></td>
+										<td>'.$row["parmanent_address"].'</td>
+										<td class="TAC">
+                                            <a class="action1 tip" title="View Detail" id="'.$row['student_id'].'"  onClick="viewStudentDetails(this.id)" href="#bModal" data-toggle="modal"><span class="icon-ok"></span></a> 
+                                            <a class="action2" id="'.$row['student_id'].'"  href="'.site_url('branch_manager_controller/editStudent'."/".$row['student_id']).'"><span class="icon-pencil"></span></a> 
+                                            <a class="action3 " id="'.$row['student_id'].'" onClick="deletesStudent(this.id)" href="#"><span class="icon-trash"></span></a>
+                                        </td>
+									</tr>';
+	}
+	echo $output;
+
+}
+
+
+
+function editStudent($student_id)
+{
+
+	$user=$this->session->userdata("userid");
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
+			//$branch_id=$this->session->userdata("branch_id");
+			
+			$data['StudentDetails']=$this->admin_model->studentMail($student_id);
+			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+		$this->load->view('header',$data);
+		$this->load->view('editStudent',$data);
+		$this->load->view('js');
+		}else{
+			redirect('admin/index');
+		}
+}
+
+
+function UpdateStudent($Student_id)
+{
+	$this->branch_manager_model->UpdateStudent($Student_id);
+	redirect('admin/viewStudent');
+}
 
 }

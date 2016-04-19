@@ -107,3 +107,20 @@ var key=$("#Student_search").val();
 			        }
 		    });
 });
+
+
+$("#grades").change(function(){
+	var key=$("#grades").val();
+	
+	//alert(key);
+			$.ajax({
+		        type: "POST",
+		       url: urls + "/branch_manager_controller/Student_by_grade",
+		        data:{'key':key},
+		        success: function(output) {
+					 //  alert(output);
+					 $("#applicationBody").empty();
+					 $("#applicationBody").append(output);
+			        }
+		    });
+});

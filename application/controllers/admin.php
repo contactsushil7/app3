@@ -325,7 +325,7 @@ class Admin extends CI_Controller {
 	public function NewStudentEntry()
 	{
 		$this->admin_model->addnewstudent();
-		redirect("Branch_manager_controller/NewRegistration");
+		redirect("admin/newStudent");
 	}
 	
 	public function StudentFeePayment()

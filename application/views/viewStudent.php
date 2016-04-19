@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />        
     <![endif]-->        
     
-    <title>View Application</title>
+    <title>Student List</title>
     
     <link href="<?php echo base_url('css/stylesheets.css'); ?>" rel="stylesheet" type="text/css" />
     <!--[if lt IE 10]>
@@ -26,13 +26,13 @@
                <div class="widget">
                 <div class="head">
                 <div class="icon"><i class="icosg-clipboard1"></i></div>
-                <h2>List of Application</h2>                       
+                <h2>Student List</h2>                       
                 </div>   
                 <div class="block-fluid">
                 
                  <div class="span3">
                 <div >
-                    <select input class="form-control input-md" name="Seeking_grade" id="classes" autocomplete="off">
+                    <select input class="form-control input-md" name="Seeking_grade" id="grades" autocomplete="off">
                                     <option value="none">Select</option>
                                     <option value="LKG" >LKG  </option>
                                     <option value="UKG" >UKG</option>
@@ -66,7 +66,7 @@
                                         <th><input type="checkbox" class="checkall"/></th>
                                         <th width="20%">Name</th>
                                          <th width="15%">Father name</th>
-                                        <th width="15%">Seeking Grade</th>
+                                        <th width="15%">Grade</th>
                                        
                                         <th width="15%">Email</th>
                                         <th width="20%">Address</th>
