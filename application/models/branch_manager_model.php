@@ -86,7 +86,13 @@ public function deleteApplication($application_id){
 	$this->db->query("DELETE FROM application WHERE application_id=$application_id"); 
 }
 
+// converting Application to Student
 
+function ConvertApplicationToStudent($application_id)
+{
+	$this->db->query("INSERT INTO student SELECT * FROM application where Application_id=$application_id");
+	$this->db->query("DELETE FROM application WHERE application_id=$application_id");
+}
 //Getting Application Details
 
 public function Application_details($app_id)
@@ -94,7 +100,12 @@ public function Application_details($app_id)
 	return $this->db->query("SELECT * FROM application WHERE application_id=$app_id ")->result_array();
 
 }
-	
+	public function deleteStudent($student_id){
+
+	if($this->db->query("DELETE FROM student WHERE student_id=$student_id"))
+		return "true";
+	else return "false";
+}
 
 	// updating the application Information 
 public function UpdateApplication($app_id){
@@ -164,7 +175,17 @@ public function UpdateApplication($app_id){
 
 		$key=$this->input->post("key");
 		return $this->db->query("SELECT * FROM application WHERE application_id LIKE '$key%' OR fname  LIKE '$key%' OR email LIKE '$key%' OR phone LIKE '$key%'")->result_array();
+	}
+// return search student
+	function Student_search(){
+
+		$key=$this->input->post("key");
+		return $this->db->query("SELECT * FROM student WHERE student_id LIKE '$key%' OR fname  LIKE '$key%' OR email LIKE '$key%' OR phone LIKE '$key%'")->result_array();
 	}	
+
+
+
+
 	// return the application by class
 	function Application_by_grade()
 	{

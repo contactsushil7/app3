@@ -10,12 +10,6 @@ function deletes(id){
 	    });
 	
 }
-
-$("#allDelete").click(function(){
-		$("#application").submit();
-	});
-
-
  function viewApplicationDetails(id)
 	{
 		//alert(id);
@@ -30,6 +24,8 @@ $("#allDelete").click(function(){
 			        }
 		    });
 	}
+
+
 
 
 $("#Application_search").keyup(function(){
@@ -64,3 +60,50 @@ $("#classes").change(function(){
 		    });
 });
 
+// Student Module Jquery function 
+
+ function viewStudentDetails(id)
+	{
+		//alert(id);
+		 $.ajax({
+		        type: "POST",
+		       url: urls + "/branch_manager_controller/viewStudentDetails",
+		        data:{'id':id},
+		        success: function(output) {
+					 //  alert(output);
+					 $("#viewDetail").empty();
+					 $("#viewDetail").append(output);
+			        }
+		    });
+	}
+
+	function deletesStudent(id){
+		alert("hello");
+	$.ajax({
+	        type: "POST",
+	        url: urls + "/branch_manager_controller/deleteStudent",
+	        data:{'id':id},
+	        success: function(output) {
+	        	alert(output);
+				   $(".s"+id).css('display','none');
+		        }
+	    });
+	
+}
+
+
+$("#Student_search").keyup(function(){
+
+//alert("hello");
+var key=$("#Student_search").val();
+ $.ajax({
+		        type: "POST",
+		       url: urls + "/branch_manager_controller/Student_search",
+		        data:{'key':key},
+		        success: function(output) {
+					 //  alert(output);
+					 $("#applicationBody").empty();
+					 $("#applicationBody").append(output);
+			        }
+		    });
+});

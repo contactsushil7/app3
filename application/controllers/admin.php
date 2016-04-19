@@ -175,7 +175,8 @@ class Admin extends CI_Controller {
 	public function newStudent()
 	{
 		$user=$this->session->userdata("userid");
-		if($user){
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 			$data['class_id']=$this->admin_model->getClass();
 			$this->load->view('header',$data);
@@ -189,7 +190,8 @@ class Admin extends CI_Controller {
 	public function newStaff()
 	{
 		$user=$this->session->userdata("userid");
-		if($user){
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 		$this->load->view('header',$data);
 		$this->load->view('newStaff');
@@ -203,7 +205,8 @@ class Admin extends CI_Controller {
 	public function AlluminiEntry()
 	{
 		$user=$this->session->userdata("userid");
-		if($user){
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 		$this->load->view('header',$data);
 		$this->load->view('AlluminiEntry');
@@ -237,7 +240,8 @@ class Admin extends CI_Controller {
 	public function viewStudent()
 	{
 		$user=$this->session->userdata("userid");
-		if($user){
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 			$data["studentList"]=$this->admin_model->GetStudentList();
 		$this->load->view('header',$data);
@@ -251,7 +255,8 @@ class Admin extends CI_Controller {
 	public function viewStaff()
 	{
 		$user=$this->session->userdata("userid");
-		if($user){
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 			$data["StaffList"]=$this->admin_model->GetStaffDetails();
 		$this->load->view('header',$data);
@@ -265,7 +270,8 @@ class Admin extends CI_Controller {
 	public function Ex_Faculty()
 	{
 		$user=$this->session->userdata("userid");
-		if($user){
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 		$this->load->view('header',$data);
 		$this->load->view('Ex_Faculty');
@@ -278,7 +284,8 @@ class Admin extends CI_Controller {
 	public function Ex_Staff()
 	{
 		$user=$this->session->userdata("userid");
-		if($user){
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 		$this->load->view('header',$data);
 		$this->load->view('Ex-Staff');
@@ -291,7 +298,8 @@ class Admin extends CI_Controller {
 	public function Allumini()
 	{
 		$user=$this->session->userdata("userid");
-		if($user){
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 		$this->load->view('header',$data);
 		$this->load->view('Allumini');
@@ -317,7 +325,7 @@ class Admin extends CI_Controller {
 	public function NewStudentEntry()
 	{
 		$this->admin_model->addnewstudent();
-		//redirect("Branch_manager_controller/NewRegistration");
+		redirect("Branch_manager_controller/NewRegistration");
 	}
 	
 	public function StudentFeePayment()

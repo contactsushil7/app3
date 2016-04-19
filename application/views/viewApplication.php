@@ -29,11 +29,10 @@
                 <h2>List of Application</h2>                       
                 </div>   
                 <div class="block-fluid">
-                <div class="span1">
-                <div class="btn-group">
-                <button class="btn btn-primary tip" data-original-title="Terminate"><span class="icon-ok icon-white"></span></button>
-                <button class="btn btn-primary tip" id="allDelete"data-original-title="Delete" name="allDelete"><span class="icon-trash icon-white" ></span></button>                                                                        
-                </div>
+                <div class="span3">
+                 <input type="submit" class="btn btn-primary tip" id="convert"data-original-title="Convert to Student" name="submit" value="Convert" style="width:70px">
+                <input type="submit"class="btn btn-primary tip" data-original-title="Delete" name="submit" value="delete" style="width:70px;">                                                                    
+               
                 </div>
 
                  <div class="span3">
