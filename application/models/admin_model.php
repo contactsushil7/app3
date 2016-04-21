@@ -264,47 +264,14 @@ class Admin_model extends CI_Model{
 		
 		
 	}
-	
-	
-	
-	function updatestudent($student_id){
-		$data['branch_id']=$this->session->userdata("branch_id");
-		$data["Name"]=$this->input->post("Name");		
-		$data["mobile"]=$this->input->post("mobile");
-		$data["session"]=$this->input->post("session");
-		$data["gender"]=$this->input->post("gender");		
-		$data["temp"]=$this->input->post("temp");
-		$data["permanent"]=$this->input->post("permanent");
-		$url=$this->input->post("url");
-		if(!empty($url)){
-			$emptyUrl=$this->db->query("select * from student where student_id=$student_id ")->result_array();
-			foreach ($emptyUrl as $row){
-				$url=$row["profile_url"];
-			}
-			unlink($url);
-		$config['upload_path'] = './img/Teacher/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '150000';
-		
-		
-		$this->load->library('upload', $config);
-		
-		if ($this->upload->do_upload('file'))
-		{
-			$doc=$this->upload->data();
-			$document=$doc['file_name'];
-			$url="img/Teacher/".$document;
-			$data['profile_url']=$url;
-		
-		}else echo $this->upload->display_errors();
+	// function to retrievee the student record for attendance
+	function studentRecordForAttendance(){
+		$branch_id=$this->session->userdata("branch_id");
+		$classes=$this->input->post("classes");
+		$section=$this->input->post("section");	
+		return $this->db->query("select * from student where branch_id=$branch_id AND section='$section' AND seeking_grade='$classes'")->result_array();	
 	}
-		$this->db->set($data);
-		$this->db->where("student_id",$student_id);
-		$this->db->update("student",$data);
-		//$this->db->where("teacher_id",$teacher_id);
-		
-		
-	}
+	
 	
 	
 	public function addnewFaculty()
@@ -543,17 +510,18 @@ public function addnewstudent()
 		
 	}
 	
-	function TeacherTakeStudentAttendence()
+	function TeacherTakeStudentAttendence($branch_id,$teacher_id,$class_id,$status,$subject_id,$section_id,$times,$dat,$student_id)
 	{
-		$data['branch_id']=$this->session->userdata('branch_id');
-		$data['teacher_id']=$this->session->userdata('userid');
-		$data['class_id']=$this->input->post("class_id");
-		$data['student_id']=$this->input->post("student_id");
-		
-		$data['status']=$this->input->post("status");
-		$data['subject_id']=$this->input->post("subject_id");
-		$data['time']=date('H:i');
-		$this->db->insert('attendence',$data);
+		$data['branch_id']=$branch_id;
+		$data['teacher_id']=$teacher_id;
+		$data['class_id']=$class_id;
+		$data['student_id']=$student_id;
+		$data['section_id']=$section_id;
+		$data['status']=$status;
+		$data['subject_id']=$subject_id;
+		$data['time']=$times;
+		$data['date']=$dat;
+		$this->db->insert('studence_aatendance',$data);
 	}
 	
 	function getTeacher()

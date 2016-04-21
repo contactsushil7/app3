@@ -356,7 +356,7 @@ class Admin extends CI_Controller {
 	{
 		$user=$this->session->userdata("userid");
 		$branch_id=$this->session->userdata("branch_id");
-		if($user){
+		if($user !=""){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 			$data['student']="";
 			$data['class']=$this->admin_model->getTeacherClass();
@@ -369,11 +369,55 @@ class Admin extends CI_Controller {
 			redirect('admin/index');
 		}
 	}
+
+	//function to retrieve the student record for attendance
+
+	function studentRecordForAttendance(){
+
+		$result=$this->admin_model->studentRecordForAttendance();
+		//print_r($result);
+		$output="";
+		$count=1;
+		foreach ($result as $row) {
+			$output.='<tr>
+							<td>'.$count.'</td>
+						
+                         <td><a href="#bModal" data-toggle="modal" id="'.$row['student_id'].'"  onClick="viewStudentDetails(this.id)">'.$row["fname"]." ". $row["lname"].'</a></td>
+                         <td>
+							<input type="checkbox" name="studentList[]" value="'.$row['student_id'].'"/>
+						</td>
+						</tr>';
+						$count++;	
+										
+		}
+		echo $output;
+	}
+
+	function submitAttendence()
+	{
+		
+		$branch_id=$this->session->userdata('branch_id');
+		$teacher_id=$this->session->userdata('userid');
+		/*$class_id=$this->input->post("classs");
+		$studentList=$this->input->post("studentList");
+		$status="Present";
+		$subject_id=$this->input->post("subject");
+		$section_id=$this->input->post("section");
+		$times=date('H:i');
+		$dat=date('Y/m/d');
+		for($i=0;$i<sizeof($studentList);$i++)
+		{
+			//echo $studentList[$i];
+			$this->admin_model->TeacherTakeStudentAttendence($branch_id,$teacher_id,$class_id,$status,$subject_id,$section_id,$times,$dat,$studentList[$i]);
+		}
+		*/
+		echo $teacher_id;
+	}
 	
 	public function view_attendence()
 	{
 		$user=$this->session->userdata("userid");
-		if($user){
+		if($user !=""){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 			$this->load->view('header',$data);
 			$this->load->view('view_attendence');

@@ -124,3 +124,37 @@ $("#grades").change(function(){
 			        }
 		    });
 });
+
+
+
+// function for Student Attendence Start Here
+
+$("#at_subject").change(function(){
+
+alert("hello");
+var classes=$("#at_class").val();
+var section=$("#at_section").val();
+var subject=$("#at_subject").val();
+if(classes !=0 && section !=0 && subject!=0)
+{
+	$.ajax({
+		        type: "POST",
+		       url: urls + "/admin/studentRecordForAttendance",
+		        data:{'classes':classes,'section':section},
+		        success: function(output) {
+					   alert(output);
+					 $("#attendanceSheet").empty();
+					 $("#attendanceSheet").append(output);
+			        }
+		    });
+
+}
+else
+{
+	if(classes!=0)
+	alert("Please choose class");
+	else
+		alert("Please choose section");
+}
+
+});
