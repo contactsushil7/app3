@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />        
     <![endif]-->        
     
-    <title>Virgo - Premium Admin Template</title>
+    <title>Blogs</title>
     
     <link href="<?php echo base_url('css/stylesheets.css'); ?>" rel="stylesheet" type="text/css" />
     <!--[if lt IE 10]>
@@ -26,7 +26,7 @@
    <div class="widget">
                 <div class="head">
                     <div class="icon"><i class="icosg-clipboard1"></i></div>
-                    <h2>Default table sorting</h2>                       
+                    <h2>List of My Blogs</h2>                       
                 </div>                
                     <div class="block-fluid">
                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid"><table class="table dataTable" cellpadding="0" cellspacing="0" width="100%" id="DataTables_Table_0" style="width: 100%;">
@@ -39,30 +39,30 @@
                         <tbody role="alert" aria-live="polite" aria-relevant="all">
                         <?php $count=1;foreach ($blog as $row){
                         	if($count==1){ $count=2?>
-                        	<tr class="odd">
+                        	<tr class="odd" id="<?php echo 'S'.$row['id']; ?>">
                                     <td class=" sorting_1"><div class="checker"><span><input type="checkbox" name="order[]" value="528" style="opacity: 0;"></span></div></td>
-                                    <td class=" "><a href="#"><?php echo $row['blog_title'];?></a></td>
-                                    <td class=" "><?php echo substr($row['blog_content'],0,50)."...";?></td>
-                                    <td class=" "><span class="label label-important"> <?php if($row['is_verify']==0){ echo "Pending";}else {echo "Aproved";}?></span></td>
+                                    <td class=" "><a href="#"><?php echo $row['headline'];?></a></td>
+                                    <td class=" "><?php echo substr($row['description'],0,50)."...";?></td>
+                                    <td class=" "><span class="label label-important"> <?php if($row['isverify']==0){ echo "Pending";}else {echo "Aproved";}?></span></td>
                                     <td class=" "><?php echo $row['post_date'];?></td>
                                     <td class="TAC ">
-                                        <a href="#"><span class="icon-ok"></span></a> 
-                                        <a href="#"><span class="icon-pencil"></span></a> 
-                                        <a href="#"><span class="icon-trash"></span></a>
+                                        <a class="action1 tip" title="View Detail" id="<?php echo $row['id']?>"  onClick="ViewBlogDetails(this.id)" href="#bModal" data-toggle="modal"><span class="icon-ok"></span></a> 
+                                        <a href="<?php echo site_url('admin/editBlog/'.$row['id']) ;?>"><span class="icon-pencil"></span></a> 
+                                        <a href="#" id="<?php echo $row['id'];?>"onclick="deleteBlog(this.id)"><span class="icon-trash"></span></a>
                                     </td>
                                 </tr>
                                 
                                 <?php }else{ $count=1;?>
-                                	<tr class="even">
+                                	<tr class="even" id="<?php echo 'S'.$row['id']; ?>">
                                     <td class=" sorting_1"><div class="checker"><span><input type="checkbox" name="order[]" value="528" style="opacity: 0;"></span></div></td>
-                                    <td class=" "><a href="#"><?php echo $row['blog_title'];?></a></td>
-                                    <td class=" "><?php echo substr($row['blog_content'],0,50)."....";?></td>
-                                    <td class=" "><span class="label label-important"> <?php if($row['is_verify']==0){ echo "Pending";}else {echo "Aproved";}?></span></td>
-                                    <td class=" ">24/11/2012</td>
+                                    <td class=" "><a href="#"><?php echo $row['headline'];?></a></td>
+                                    <td class=" "><?php echo substr($row['description'],0,50)."....";?></td>
+                                    <td class=" "><span class="label label-important"> <?php if($row['isverify']==0){ echo "Pending";}else {echo "Aproved";}?></span></td>
+                                    <td class=" "><?php echo $row['post_date'];?></td>
                                     <td class="TAC ">
-                                        <a href="#"><span class="icon-ok"></span></a> 
-                                        <a href="#"><span class="icon-pencil"></span></a> 
-                                        <a href="#"><span class="icon-trash"></span></a>
+                                         <a class="action1 tip" title="View Detail" id="<?php echo $row['id']?>"  onClick="ViewBlogDetails(this.id)" href="#bModal" data-toggle="modal"><span class="icon-ok"></span></a> 
+                                        <a href="<?php echo site_url('admin/editBlog/'.$row['id']) ;?>"><span class="icon-pencil"></span></a> 
+                                        <a href="#" id="<?php echo $row['id'];?>"onclick="deleteBlog(this.id)"><span class="icon-trash"></span></a>
                                     </td>
                                 </tr>
                                 <?php }?>
@@ -72,5 +72,22 @@
                     </div> 
             </div>
     </div>
+
+
+
+    <!-- Modal  start for Blog  Details -->
+        <div id="bModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;width:50%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Blog</h3>
+            </div>
+            <div class="modal-body" id="viewBlog">
+            
+            </div>
+           
+        </div>
+        
+        
+        
 </body>
 </html>

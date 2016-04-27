@@ -23,6 +23,62 @@
     
    
     <div class="content">
+
+     <div class="block-fluid">
+                                <div class="span2">
+                                <div class="input-prepend">
+                                    <span class="add-on">Class</span>
+                                      <select id="at_class" name="classs">
+                                    <option value="0">choose a class</option>
+                                  
+                                    <option value="LKG" >LKG  </option>
+                                    <option value="UKG" >UKG</option>
+                                    <option value="Class 1" >Class 1 </option>
+                                    <option value="Class 2" >Class 2</option>
+                                    <option value="Class 3" >Class  3</option>
+                                    <option value="Class 4" >Class 4</option>
+                                    <option value="Class 5" >Class 5 </option>
+                                    <option value="Class 6" >Class 6</option>
+                                    <option value="Class 7" >Class 7</option>
+                                    <option value="Class 8" >Class 8</option>
+                                    <option value="Class 9" >Class 9</option>
+                                    <option value="Class 11" >Class 11</option>                                                                 
+                                </select>                         
+                                </div> 
+                            
+                                </div>
+                                <div class="span2 offset1 ">
+                              <div class="input-prepend">
+                                    <span class="add-on">Section</span>
+                                      <select name="section" id="at_section">
+                                                    <option value="0">choose a Section</option>
+                                                    <option value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                    <option value="D">D</option>
+                                                    <option value="E">E</option>
+                                                                                                        
+                                         </select>                           
+                                </div> 
+                                </div>
+                                
+                                <div class="span2 offset1 ">
+                              <div class="input-prepend">
+                                    <span class="add-on">Subject</span>
+                                      <select name="subject" id="at_subject">
+                                                    <option value="0">Choose Subjet</option>
+                                                    <option value="1">Hindi</option>
+                                                    <option value="2">English</option>
+                                                    <option value="3">Math</option>
+                                                    <option value="4">Science</option>
+                                                    <option value="5">Social Science</option>
+                                                                                                        
+                                         </select>                           
+                                </div> 
+                                </div>
+                </div>
+                
+                        
     <div class="row-fluid">
     	<div class="span3">
     	<input type="button" class="btn" value="1">

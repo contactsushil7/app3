@@ -35,19 +35,10 @@
                     <div class="block-fluid">
 
                         <div class="row-form">                     
-                            <div class="span2"><b>Branch ID </b></div>
-                              <div class="span2"> <select input class="form-control input-md" name="Seeking_grade" id="seeking_grade" autocomplete="off">
-									<option value="none">Select</option>
-									<option value="111" >111</option>
-									<option value="222" >222</option>
-									<option value="333" >333</option>
-									<option value="444" >444</option>
-									
-									</select>
-								</div>  
+                           
 						   <div class="span2"><b>Class</b></div>
-							 <div class="span2"> <select input class="form-control input-md" name="Seeking_grade" id="seeking_grade" autocomplete="off">
-									<option value="none">Select</option>
+							 <div class="span3"> <select class="form-control " id="fee_class" autocomplete="off" onchange="getStudentForFee()" >
+									<option value="0">Select</option>
 									<option value="LKG" >LKG  </option>
 									<option value="UKG" >UKG</option>
 									<option value="Class 1" >Class 1 </option>
@@ -62,19 +53,31 @@
 									<option value="Class 11" >Class 11</option>
 									
 									</select>
-								</div>  
+								</div> 
+
+
+								 <div class="span2"><b>Section</b></div>
+							<div class="span3"> <select input class="form-control input-md" id="fee_section" autocomplete="off">
+									<option value="0" >Choose Section</option>
+									<option value="A" >A</option>
+									<option value="B" >B</option>
+									<option value="C" >C</option>
+									<option value="D" >D</option>
+									<option value="E" >E</option>																	
+									</select>
+							</div>   
 							</div>
 						<div class="row-form">    
-                          <div class="span2"><b>Student ID</b></div>
-                           <div class="span2"><input type="text" name="name" placeholder="Enter staff name"></div>
-						   
-						   <div class="span2"><b>Section</b></div>
-							<div class="span2"> <select input class="form-control input-md" name="Seeking_grade" id="seeking_grade" autocomplete="off">
+                          
+                          <div class="span2"><b>Student</b></div>
+							<div class="span3"> <select input class="form-control input-md" name="Seeking_grade" id="seeking_grade" autocomplete="off">
 									<option value="Class 1" >A</option>
 									<option value="Class 2" >B</option>
 									<option value="Class 3" >C</option>																	
 									</select>
-							</div>  
+							</div>   
+						   
+						  
                         </div>
 						
 						<h5> Student Details </h5>

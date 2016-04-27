@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />        
     <![endif]-->        
     
-    <title>New Blog</title>
+    <title>Update Blog</title>
     
     <link href="<?php echo base_url('css/stylesheets.css'); ?>" rel="stylesheet" type="text/css" />
     <!--[if lt IE 10]>
@@ -25,7 +25,9 @@
     <div class="content">
     
     <div class="span8">
-          <form action="<?php echo site_url('admin/submitBlog')?>" method="post">
+    <?php foreach($blog as $row){
+    ?>
+          <form action="<?php echo site_url('admin/updateBlog/'.$row['id'])?>" method="post">
           
           
                <div class="widget">
@@ -36,7 +38,7 @@
                         
                     </div>
          <div>
-                         <textarea row="50" col="100" name="title" required>Blog title</textarea>
+                         <textarea row="50" col="100" name="title" required><?php echo $row['headline'];?></textarea>
                         
                         </div>
                     <div class="head dark">
@@ -47,7 +49,7 @@
                         
                         <div class="cleditorMain" style="width: 100%; height: 300px;">
                         
-                        <textarea id="wysiwyg" name="content" required="true">Write Your Blog</textarea>
+                        <textarea id="wysiwyg" name="content" ><?php echo $row['description'];?></textarea>
                          <iframe frameborder="0" src="javascript:true;" style="width: 689px; height: 247px;"></iframe></div>
                         
                     </div>
@@ -57,6 +59,7 @@
                 </div>            
               
            </form> 
+           <?php } ?>
            </div>          
     </div>
 </body>

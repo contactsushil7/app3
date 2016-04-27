@@ -38,6 +38,14 @@ class Admin_model extends CI_Model{
 			show_error($this->email->print_debugger());
 		}
 	}
+//this is accessible via  ajax 
+	function GetClassStudents(){
+		$academic_year=$this->input->post("years");
+		$classes=$this->input->post("classes");
+		$section=$this->input->post("section");
+		//return $classes.$section.$academic_year;
+	return $this->db->query("SELECT * FROM student where academic_year='$academic_year' AND seeking_grade='$classes' AND section='$section'")->result_array();
+	}
 	public function Registration(){
 		$data['name']=$this->input->post("name");
 		
@@ -87,7 +95,11 @@ class Admin_model extends CI_Model{
 	{
 		return $this->db->query("SELECT * FROM student")->result_array();
 	}
-
+public function GetStudentLists($academic_year,$classes,$section)
+{
+	$branch_id=$this->session->userdata("branch_id");
+	return $this->db->query("SELECT * FROM student where academic_year='$academic_year' AND seeking_grade='$classes' AND section='$section' AND branch_id=$branch_id")->result_array();
+}
 	public function GetStaffDetails()
 	{
 		return $this->db->query("SELECT * FROM staff")->result_array();
@@ -97,16 +109,19 @@ class Admin_model extends CI_Model{
 	public function submitBlog()
 	{
 		$user=$this->session->userdata("userid");
+		$branch_id=$this->session->userdata("branch_id");
 		$title=$this->input->post("title");
 		$content=$this->input->post("content");
 		
 		$data=array(
-				"blog_title"=>$title,
-				"blog_content"=>$content,
-				"Author"=>$user
+				"headline"=>$title,
+				"description"=>$content,
+				"isverify"=>0,
+				"user_id"=>$user,
+				"branch_id"=>$branch_id
 				
 				);
-		if($this->db->insert("Blog",$data))
+		if($this->db->insert("blog",$data))
 		{
 			return "Your blog is submittet and it will verify soon";
 		}
@@ -114,10 +129,35 @@ class Admin_model extends CI_Model{
 		
 	}
 	
+	function updateBlog($id)
+	{
+		$data=array(
+				"headline"=>$this->input->post("title"),
+				"description"=>$this->input->post("content"),
+				"isverify"=>0,
+				);
+		$this->db->set($data);
+		$this->db->where("id",$id);
+		$this->db->update('blog');
+	}
 	public function getBlogs()
 	{
+		$user=$this->session->userdata("userid");
 		
-		return $this->db->query("Select * from blog where is_verify=1 order by blog_id desc limit 25")->result_array();
+		return $this->db->query("Select * from blog where user_id=$user order by id desc limit 25")->result_array();
+	}
+
+	function deleteBlog()
+	{
+		$id=$this->input->post('id');
+		$this->db->query("DELETE FROM blog where id=$id");
+	}
+
+
+
+	function getsingleBolgDetails($id)
+	{
+		return $this->db->query("Select * from blog where id=$id")->result_array();
 	}
 	
 	public function newCollege()
@@ -601,5 +641,121 @@ public function addnewstudent()
 			echo "helllo";
 		}
 		
+	}
+
+	function StudentAttendenceReportS($student_id,$year,$month,$date)
+	{
+		//$d=date_create($year."/".$month."/".$date);
+		$d= date_format(date_create($year."/".$month."/".$date),"Y/m/d");
+		$result= $this->db->query("select * from studence_aatendance where student_id=$student_id AND date='$d'")->result_array();
+		if(!empty($result)){
+			return "P";
+		}
+		else {
+			return "A";
+		}
+			
+	}
+
+	function academicYear(){
+
+		return $this->db->query("select DISTINCT academic_year from student")->result_array();
+	}
+
+	function addnewInventory()
+	{
+		$data['branch_id']=$this->session->userdata("branch_id");
+		$data['recipt_number']=$this->input->post("Reciept");
+		$data['vendor_name']=$this->input->post("vendor");
+		$data['expences_catogery']=$this->input->post("expenses");
+		$data['description_of_expence']=$this->input->post("description");
+		$data['expence_amount']=$this->input->post("amount");
+		$data['tax']=$this->input->post("tax");
+		$data['payment_due_date']=$this->input->post("due_date");
+		$data['due_payment']=$this->input->post("due");
+		$data['dates']=$this->input->post("date");
+		$data['mode_of_payment']=$this->input->post("mode");
+		//$data['recipt_number']=$this->input->post("");
+		$this->db->insert('inventory',$data);
+
+	}
+
+function updateInventory($id){
+
+		//$data['branch_id']=$this->session->userdata("branch_id");
+		$data['recipt_number']=$this->input->post("Reciept");
+		$data['vendor_name']=$this->input->post("vendor");
+		$data['expences_catogery']=$this->input->post("expenses");
+		$data['description_of_expence']=$this->input->post("description");
+		$data['expence_amount']=$this->input->post("amount");
+		$data['tax']=$this->input->post("tax");
+		$data['payment_due_date']=$this->input->post("due_date");
+		$data['due_payment']=$this->input->post("due");
+		$data['dates']=$this->input->post("date");
+		$data['mode_of_payment']=$this->input->post("mode");
+		$this->db->set($data);
+		$this->db->where('id',$id);
+		$this->db->update('inventory',$data);
+}
+	function getInventory()
+	{
+		$branch_id=$this->session->userdata("branch_id");
+		return $this->db->query("SELECT * FROM inventory where branch_id=$branch_id order by id desc limit 20 ")->result_array();
+	}
+
+	function deletesInventory(){
+
+		$id=$this->input->post("id");
+		$this->db->query("DELETE FROM inventory where id=$id");
+
+	}
+
+function deletesInventorys($id){
+
+		$this->db->query("DELETE FROM inventory where id=$id");
+
+	}
+	function getSingleInventoryDetails($id)
+	{
+		return $this->db->query("SELECT * FROM inventory where id=$id")->result_array();
+	}
+
+
+	function Inventory_search()
+	{
+		$key=$this->input->post("key");
+		return $this->db->query("SELECT * FROM inventory WHERE recipt_number LIKE '$key%'")->result_array();
+	}	
+
+	function getInventoryList()
+	{
+
+		$branch_id= $this->session->userdata("branch_id");
+		$academic=  $this->input->post("academic");
+		$month=  $this->input->post("month");
+		if($month!=0)
+		{
+
+			if($month <=7)
+			{
+				$y=substr($academic,0,4);
+				$dat=$y."-".$month;
+				//$d=date_create($dat);
+				//$dat=date_format($d,"y-m");	
+				return $this->db->query("SELECT * FROM inventory WHERE branch_id=$branch_id dates LIKE '$dat%' ")->result_array();
+				//echo $dat;
+
+			}
+			else{
+					$y=substr($academic,-4);
+					$dat=$y."-".$month;
+					//$d=date_create($dat);
+					//$dat=date_format($d,"y-m");
+					//return $dat;				
+	return $this->db->query("SELECT * FROM inventory WHERE branch_id=$branch_id AND dates LIKE '$dat%' ")->result_array();
+
+			}
+		}
+
 	}
 }

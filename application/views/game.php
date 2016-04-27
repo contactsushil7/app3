@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />        
     <![endif]-->        
     
-    <title>Virgo - Premium Admin Template</title>
+    <title>Game</title>
     
     <link href="<?php echo base_url('css/stylesheets.css'); ?>" rel="stylesheet" type="text/css" />
     <!--[if lt IE 10]>

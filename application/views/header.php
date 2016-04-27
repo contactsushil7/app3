@@ -86,8 +86,9 @@
             
              <div id="Blogs">                
                 <div class="menu">
-                    <a href="<?php echo site_url('admin/allBlog')?>"><span class="icosg-feed"></span>Blog</a>
                     <a href="<?php echo site_url('admin/blog');?>"><span class="icosg-pencil"> </span>Write New Blog</a>
+                    <a href="<?php echo site_url('admin/allBlog')?>"><span class="icosg-feed"></span>My Blog</a> 
+                   
                     <a href="<?php echo site_url('admin/Ex_Faculty')?>"><span class="icosg-feed2"></span>My Blogs</a>                    
                     
                 </div>                                
@@ -150,7 +151,9 @@
             <div id="stats">
                 
                 <div class="menu">
-                    <a href="chart_line.html"><span class="icosg-pencil"></span>File Report</a>
+                    <a href="<?php echo site_url('admin/StudentReport');?>"><span class="icosg-pencil"></span>Student</a>
+
+                    <a href="<?php echo site_url('admin/InventoryReport');?>"><span class="icosg-pencil"></span>Inventory</a>
                     <a href="<?php echo site_url('admin/report');?>"><span class="icon-adjust"></span> Graphical Report</a>
                     <a href="chart_column.html"><span class="icon-tasks"></span> Columns</a>
                     <a href="chart_widgets.html"><span class="icon-star"></span> Chart widgets</a>                    
@@ -180,11 +183,9 @@
 
             <div id="other">
                 <div class="menu">
-                    <a href="login.html"><span class="icon-off"></span> Stock Category</a>
-                    <a href="error_403.html"><span class="icon-warning-sign"></span>Suplier/Vendors</a>
-                    <a href="error_404.html"><span class="icon-warning-sign"></span> Purchased Orders</a>
-                    <a href="error_503.html"><span class="icon-warning-sign"></span>Stock Inwards </a>
-                     <a href="error_503.html"><span class="icon-warning-sign"></span>Stock Issues </a>                
+                    <a href="<?php echo site_url('admin/newInventory');?>"><span class="icon-off"></span> New </a>
+                    <a href="<?php echo site_url('admin/ViewInventory');?>"><span class="icon-warning-sign"></span> View Inventory</a>
+                               
                 </div>
                 <div class="dr"><span></span></div>
                 <div class="widget">
@@ -194,12 +195,8 @@
                     <div class="alert alert-error">            
                         <strong>Oh snap!</strong> Change a few... 
                     </div>
-                    <div class="alert alert-success">            
-                        <strong>Well done!</strong> Successfully...
-                    </div>            
-                    <div class="alert alert-info">            
-                        <strong>Heads up!</strong> This alert...
-                    </div>                  
+                             
+                                   
                 </div>
             </div>            
             

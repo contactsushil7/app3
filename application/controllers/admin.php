@@ -38,6 +38,28 @@ class Admin extends CI_Controller {
 	}
 	
 	
+
+	public function GetClassStudent()
+	{
+		$result = $this->admin_model->GetClassStudents();
+		$output="";
+		$output.='<option value="0">Choose a Student</option>';
+		foreach ($result as $row) {
+			# code...
+				$output.=' <option value="'.$row['student_id'].'">'.$row['fname'].' '.$row['lname'].'</option>';
+		}
+		echo $output;
+//echo "sushil";
+		//print_r($result);
+	}
+
+
+	function addnewInventory()
+	{
+
+		$this->admin_model->addnewInventory();
+		redirect('admin/newInventory');
+	}
 	public function Registration()
 	{
 		$this->admin_model->Registration();
@@ -94,10 +116,7 @@ class Admin extends CI_Controller {
 				
 			$this->session->set_userdata('role_type',$role_type);
 			$this->session->set_userdata('userid',$user_id);
-			$this->load->view('header',$data);
-			$this->load->view('adminHome');
-			$this->load->view('js');
-			
+			redirect('admin/home');
 		}
 		else
 		{
@@ -109,7 +128,8 @@ class Admin extends CI_Controller {
 	}
 	public function playGame(){
 		$user=$this->session->userdata("userid");
-		if($user){
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Student"){
 		$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 		$data["game"]=$this->admin_model->playGame();
 		$this->load->view('header',$data);
@@ -159,10 +179,49 @@ class Admin extends CI_Controller {
 					redirect('admin/index');
 				}	
 	}
-	
+	function editBlog($id)
+	{	$user=$this->session->userdata("userid");
+		if($user!=""){
+			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+			$data["blog"]=$this->admin_model->getsingleBolgDetails($id);
+			
+			$this->load->view('header',$data);
+			$this->load->view('editblog',$data);
+			$this->load->view('js');
+
+		}
+
+	}
+
+	function viewBlogDetail()
+	{
+		$id=$this->input->post("id");
+		$result=$this->admin_model->getsingleBolgDetails($id);
+		$output="";
+		foreach ($result as $row) {
+			$output.='<h5> Blog Title</h5>
+			<span> '.$row['headline'].'</span>
+			<h5> Blog Content</h5>
+			<span> '.$row['description'].'</span>'
+
+			;
+		}
+		echo $output;
+
+	}
+
+	function deleteBlog()
+	{
+		$this->admin_model->deleteBlog();
+	}
+
+	function updateBlog($id){
+		$this->admin_model->updateBlog($id);
+		redirect('admin/allBlog');
+	}
 	public function newFaculty()
 	{$user=$this->session->userdata("userid");
-		if($user){
+		if($user!=""){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 		$this->load->view('header',$data);
 		$this->load->view('newFaculty');
@@ -330,8 +389,10 @@ class Admin extends CI_Controller {
 	
 	public function StudentFeePayment()
 	{
+		
 		$user=$this->session->userdata("userid");
-		if($user){
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
 			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
 			$this->load->view('header',$data);
 			$this->load->view('feePayments');
@@ -398,7 +459,7 @@ class Admin extends CI_Controller {
 		
 		$branch_id=$this->session->userdata('branch_id');
 		$teacher_id=$this->session->userdata('userid');
-		/*$class_id=$this->input->post("classs");
+		$class_id=$this->input->post("classs");
 		$studentList=$this->input->post("studentList");
 		$status="Present";
 		$subject_id=$this->input->post("subject");
@@ -410,8 +471,8 @@ class Admin extends CI_Controller {
 			//echo $studentList[$i];
 			$this->admin_model->TeacherTakeStudentAttendence($branch_id,$teacher_id,$class_id,$status,$subject_id,$section_id,$times,$dat,$studentList[$i]);
 		}
-		*/
-		echo $teacher_id;
+		
+		//echo $teacher_id;
 	}
 	
 	public function view_attendence()
@@ -1089,6 +1150,330 @@ class Admin extends CI_Controller {
 		$this->admin_model->tempReport(4);
 		//echo "success";
 	}
+
+	function StudentReport(){
+
+		$user=$this->session->userdata("userid");
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
+			//$branch_id=$this->session->userdata("branch_id");
+			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+			$data["academic_year"]=$this->admin_model->academicYear();
+		$this->load->view('header',$data);
+		$this->load->view('StudentReport',$data);
+		$this->load->view('js');
+		}else{
+			redirect('admin/index');
+		}
+	}
+
+
+	function studentReportS()
+	{
+
+		$academic_year=$this->input->post("years");
+		$classes=$this->input->post("classes");
+		$section=$this->input->post("section");
+		$month=$this->input->post("month");
+		$stu=$this->input->post("student");
+		$output="";
+		if($stu==0){
+			if($month<=7){
+			//$y=substr($academic_year,-4);
+			$y=substr($academic_year,-4);
+			$student=$this->admin_model->GetStudentLists($academic_year,$classes,$section);
+		
+				foreach ($student as $row) {
+					for($j=1;$j<=31;$j++)
+					{
+						${$row["student_id"].$month.$j}=$this->admin_model->StudentAttendenceReportS($row['student_id'],$y,$month,$j);
+					}
+				}
+		
+		//$output="";
+		$output.='<tr style="text-align:center;"><td>Jan</td></tr>';
+		foreach ($student as $row){
+		
+			$output.='<tr><td>'.$row['fname'].$row['lname'].'</td>';
+			for($j=1;$j<=31;$j++)
+			{
+
+				$output.='<td>'.${$row["student_id"].$month.$j}.'</td>' ;
+			}
+			$output.='</tr>';
+		}
+			
+	}
+	else{
+
+					$y=substr($academic_year,0,4);
+		$student=$this->admin_model->GetStudentLists($academic_year,$classes,$section);
+		
+		foreach ($student as $row) {
+			for($j=1;$j<=31;$j++)
+			{
+				${$row["student_id"].$month.$j}=$this->admin_model->StudentAttendenceReportS($row['student_id'],$y,$month,$j);
+			}
+		}
+		
+		//$output="";
+		$output.='<tr style="text-align:center;"><td>Jan</td></tr>';
+		foreach ($student as $row) {
+		
+			$output.='<tr><td>'.$row['fname'].$row['lname'].'</td>';
+			for($j=1;$j<=31;$j++)
+			{
+
+				$output.='<td>'.${$row["student_id"].$month.$j}.'</td>' ;
+			}
+			$output.='</tr>';
+		}
+	}	
+	
+
+	}
+	else
+	{
+		
+		if($month<=7){
+			//$y=substr($academic_year,-4);
+			$y=substr($academic_year,-4);
+		for($j=1;$j<=31;$j++)
+			{
+				${$stu.$month.$j}=$this->admin_model->StudentAttendenceReportS($stu,$y,$month,$j);
+			}
+
+
+			$output.='<tr style="text-align:center;"><td>Jan</td></tr>';		
+			$output.='<tr><td>'.$stu.'</td>';
+			for($j=1;$j<=31;$j++)
+			{
+
+				$output.='<td>'.${$stu.$month.$j}.'</td>' ;
+			}
+		
+			$output.='</tr>';
+			
+			//echo $y;
+		}else
+		{
+			$y=substr($academic_year,0,4);
+		for($j=1;$j<=31;$j++)
+			{
+				${$stu.$month.$j}=$this->admin_model->StudentAttendenceReportS($stu,$y,$month,$j);
+			}
+
+
+			$output.='<tr style="text-align:center;"><td>Jan</td></tr>';		
+			$output.='<tr><td>'.$stu.'</td>';
+			for($j=1;$j<=31;$j++)
+			{
+
+				$output.='<td>'.${$stu.$month.$j}.'</td>' ;
+			}
+			$output.='</tr>';
+		}
+			
+			
+	
+		
+
+		echo $output;
+		//print_r($student);
+	}
+}
+
+
+function newInventory()
+{
+	$user=$this->session->userdata("userid");
+	$role_type=$this->session->userdata("role_type");
+	if($user!="" && $role_type=="Branch_Admin"){
+		$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+		$this->load->view('header',$data);
+		$this->load->view('newInventory');
+		$this->load->view('js');
+
+	}
+	else{
+			redirect('admin/index');
+		}
+
+}
+
+function ViewInventory()
+{
+
+	$user=$this->session->userdata("userid");
+	$role_type=$this->session->userdata("role_type");
+	if($user!="" && $role_type=="Branch_Admin"){
+		$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+		$data["inventory"]=$this->admin_model->getInventory($user);
+		$this->load->view('header',$data);
+		$this->load->view('viewInventory');
+		$this->load->view('js');
+
+	}else{
+			redirect('admin/index');
+		}
+
+}
+
+function deletesInventory()
+{
+		$this->admin_model->deletesInventory();
+
+}
+function editInventory($id)
+{
+	$user=$this->session->userdata("userid");
+	$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+	$data['inventory']=$this->admin_model->getSingleInventoryDetails($id);
+	$this->load->view('header',$data);
+	$this->load->view('editInventory',$data);
+	$this->load->view('js');
+}
+function updateInventory($id)
+{
+	$this->admin_model->updateInventory($id);
+	redirect('admin/viewInventory');
+}
+
+function viewInventoryDetails()
+{
+
+	//echo "<h1>hello dear </h1>";s
+	$id=$this->input->post('id');
+	$details=$this->admin_model->getSingleInventoryDetails($id);
+	$output="";
+	foreach ($details as $row) {
+		$output.='<div class="block-fluid">
+			
+			<table cellpadding="0" cellspacing="0" width="100%" class="sTable">
+			<tbody>
+			 
+			
+			<tr>
+			<td>';
+			$output.='<img src="'.  base_url().'" class="img-circle" height="100px"  width="100px"></td>';
+			$output.='<td>'. "<span>Reciept Number: ".$row['recipt_number'].'</span><br>'.
+							"<span>Vendor: ".$row['vendor_name'].'</span><br>'.
+							"<span>Expenses Category ".$row['expences_catogery'].'</span><br>'.
+
+							"<span>Expenses Description :".$row['description_of_expence'].'</span><br>'.
+							"<span>Payment Mode :".$row['mode_of_payment'].'</span><br>'.
+			'</td>
+
+			<td>
+
+					'. "<span>Expense Amount: ".$row['expence_amount'].'</span><br>'.
+							"<span>Tax: ".$row['tax'].'</span><br>'.
+							"<span>Due Amount : ".$row['due_payment'].'</span><br>'.
+
+							"<span>Due Payment date :".$row['payment_due_date'].'</span><br>'.
+							"<span>Expense date :".$row['date'].'</span><br>'.
+			'
+			
+			</td>
+			</tr>
+				
+
+			
+			</tbody>
+			</table>
+			
+			</div>';
+
+
+	}
+	echo $output;
+
+
+}
+
+function Inventory_search()
+{
+
+	$result=$this->admin_model->Inventory_search();
+	$output="";
+	foreach ($result as $row) {
+		# code...
+
+		$output.=' <tr class="'. "s".$row['id'].'">
+                                        <td><input type="checkbox" name="order[]" value="'.$row['id'].'"/></td>
+                                       <td><a href="#bModal" data-toggle="modal" id="'.$row['id'].'"  onClick="viewInventory(this.id)">'.$row["recipt_number"].'</a></td>
+										<td>'.$row["expences_catogery"].'</a></td>
+										<td><'.$row["description_of_expence"].'</td>
+										<td>'.$row["expence_amount"].'</span></td>
+										<td>'.$row["date"].'</td>
+										<td class="TAC">
+                                            <a class="action1 tip" title="View Detail" id="'.$row['id'].'"  onClick="viewInventory(this.id)" href="#bModal" data-toggle="modal"><span class="icon-ok"></span></a> 
+                                            <a class="action2" id="'.$row['id'].'"  href="'.site_url('admin/editInventory/'.$row['id']).'"><span class="icon-pencil"></span></a> 
+                                            <a class="action3 " id="'.$row['id'].'" onClick="deletesInventory(this.id)" href="#"><span class="icon-trash"></span></a>
+                                        </td>
+									</tr>';
+	}
+	echo $output;
+}
+
+function deleteAllInventory()
+{
+
+	$application_id=$this->input->post("inventorys");
+	
+			if($application_id){
+					for($i=0;$i<sizeof($application_id);$i++) {
+						$this->admin_model->deletesInventorys($application_id[$i]);
+					}
+			}
+
+		
+		
+	 redirect('admin/viewInventory');
+		
+}
+
+
+
+public function InventoryReport()
+	{
+		
+		$user=$this->session->userdata("userid");
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
+			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+			$data["academic_year"]=$this->admin_model->academicYear();
+			$this->load->view('header',$data);
+			$this->load->view('inventoryReport',$data);
+			$this->load->view('js');
+		}else{
+			redirect('admin/index');
+		}
+	}
+
+	function getInventoryList()
+	{
+		$result=$this->admin_model->getInventoryList();
+		$output="";
+	foreach ($result as $row) {
+			$output.='<tr>
+                        <td>'.$row["recipt_number"].'</td>
+										<td>'.$row["expences_catogery"].'</td>
+										<td>'.$row["description_of_expence"].'</td>
+										<td>'.$row["expence_amount"].'</span></td>
+										<td>'.$row["dates"].'</td>
+										<td class="TAC">
+                                            
+                                        </td>
+									</tr>';
+
+		}
+		echo $output;
+		
+		//echo $result;
+	}
+
+
 }
 
 /* End of file welcome.php */
