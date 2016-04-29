@@ -21,7 +21,7 @@
 </head>
 <body>
     
-   
+    <form id="application"action="<?php echo  site_url('branch_manager_controller/deleteAllFaculty') ?>" method="post">  
     <div class="content">
                <div class="widget">
                 <div class="head">
@@ -31,14 +31,14 @@
                 <div class="block-fluid">
                 <div class="span4">
                 <div class="btn-group">
-                <button class="btn btn-primary tip" data-original-title="Terminate"><span class="icon-ok icon-white"></span></button>
-                <button class="btn btn-primary tip" data-original-title="Delete"><span class="icon-trash icon-white" ></span></button>                                                                        
+                <button class="btn btn-primary tip" data-original-title="Terminate"><span>Terminate Faculty </span></button>
+                <button class="btn btn-primary tip" data-original-title="Delete"><span>Delete Faculty </span></button>                                                                        
                 </div>
                 </div>
                 <div class="span4">
                 <div class="input-prepend">
                 <span class="add-on" style="background-color:#fff;margin-left:20px;"><i class="icosg-search"></i></span>
-                <input type="text" style="width: 209px;"  placeholder="Name,Email,Phone Number" id="search" onkeyup="search()">    
+                <input type="text" style="width: 209px;"  placeholder="Name,Email,Phone Number" id="facultysearch">      
                 </div>  
                 </div>
                 </div>
@@ -49,11 +49,11 @@
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" class="checkall"/></th>
-                                        <th width="20%">Name</th>
+                                        <th width="15%">Name</th>
                                         <th width="15%">Designation</th>
-                                        <th width="15%">Qualification</th>
-                                        <th width="15%">Email</th>
-                                        <th width="20%">Address</th>
+                                        <th width="10%">Qualification</th>
+                                        <th width="10%">Email</th>
+                                        <th width="30%">Address</th>
 										  <th width="15%" class="TAC">Actions</th>		
                                     </tr>
                                 </thead>
@@ -63,16 +63,16 @@
                                  ?>
                                     <tr class="<?php echo "s".$row['teacher_id'];?>">
                                         <td><input type="checkbox" name="order[]" value="<?php echo $row['teacher_id'];?>"/></td>
-                                       <td><a href="#bModal" data-toggle="modal" id="<?php echo $row['teacher_id'];?>"  onClick="view(this.id)"><?php echo $row["Name"]?></a></td>
+                                       <td><a href="#bModal" data-toggle="modal" id="<?php echo $row['teacher_id'];?>"  onClick="viewefacultydetailss(this.id)"><?php echo $row["Name"]?></a></td>
 										<td><?php echo $row["Designation"];?></a></td>
 										<td><?php echo $row["qualification"];?></td>
 										<td><?php echo $row["email"];?></span></td>
 										<td><?php echo $row["permanent"];?></td>
 										<td class="TAC">
-                                            <a class="action1 tip" title="View Detail" id="<?php echo $row['teacher_id']?>"  onClick="view(this.id)" href="#bModal" data-toggle="modal"><span class="icon-ok"></span></a> 
-                                            <a class="action2" id="<?php echo $row['teacher_id'];?>"  onClick="edit(this.id)" href="#"><span class="icon-pencil"></span></a> 
-                                            <a class="action3 " id="<?php echo $row['teacher_id'];?>" onClick="deletes(this.id)" href="#"><span class="icon-trash"></span></a>
-                                        </td>
+                                            <a class="action1 tip" title="View Detail" id="<?php echo $row['teacher_id']?>"  onClick="viewefacultydetailss(this.id)" href="#bModal" data-toggle="modal"><span class="icon-ok"></span></a> 
+                                            <a class="action2" id="<?php echo $row['teacher_id'];?>"  href="<?php echo site_url('branch_manager_controller/editfaculty'."/".$row['teacher_id']);?>"><span class="icon-pencil"></span></a> 
+                                            <a class="action3 " id="<?php echo $row['teacher_id'];?>" onClick="deletefaculty(this.id)" href="#"><span class="icon-trash"></span></a>
+                                     </td>
 									</tr>
                                 <?php }}?>               
                                 </tbody>

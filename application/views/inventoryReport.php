@@ -26,7 +26,7 @@
                <div class="widget">
                 <div class="head">
                 <div class="icon"><i class="icosg-clipboard1"></i></div>
-                <h2>List of Inventory</h2>                       
+                <h2>Inventory Report</h2>                       
                 </div>   
                
                 <div class="block-fluid">
@@ -81,13 +81,15 @@
                                 <thead>
                                     <tr>
                                         
-                                        <th width="20%">Reciept Id</th>
+                                        <th width="10%">Reciept Id</th>
                                         <th width="15%">Expense Category</th>
-                                        <th width="15%">Expense Description</th>
-                                        <th width="15%">Amount</th>
-                                        <th width="20%">Tax</th>
-
-										  <th width="15%" class="TAC">Actions</th>		
+                                        <th width="20%">Expense Description</th>
+                                        <th width="5%">Date</th>
+                                        <th width="10%">Amount</th>
+                                         <th width="5%">Tax</th>
+                                         <th width="5%">Due</th>
+                                        
+										  <th width="15%" class="TAC">Total</th>		
                                     </tr>
                                 </thead>
                                 <tbody id="inventory_body">

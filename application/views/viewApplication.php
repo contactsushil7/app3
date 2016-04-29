@@ -29,13 +29,13 @@
                 <h2>List of Application</h2>                       
                 </div>   
                 <div class="block-fluid">
-                <div class="span3">
-                 <input type="submit" class="btn btn-primary tip" id="convert"data-original-title="Convert to Student" name="submit" value="Convert" style="width:70px">
-                <input type="submit"class="btn btn-primary tip" data-original-title="Delete" name="submit" value="delete" style="width:70px;">                                                                    
+                <div class="span5">
+                 <input type="submit" class="btn btn-primary tip" id="convert"data-original-title="Convert to Student" name="submit" value="Convert To Student " style="width:150px">
+                <input type="submit"class="btn btn-primary tip" data-original-title="Delete" name="submit" value="Delete Application " style="width:150px;">                                                                    
                
                 </div>
 
-                 <div class="span3">
+                 <div class="span2">
                 <div >
                     <select input class="form-control input-md" name="Seeking_grade" id="classes" autocomplete="off">
                                     <option value="none">Select</option>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="span3">
                 <div class="input-prepend">
-                <span class="add-on" style="background-color:#fff;margin-left:20px;"><i class="icosg-search"></i></span>
+                <span class="add-on" style="background-color:#fff;"><i class="icosg-search"></i></span>
                 <input type="text" style="width: 209px;"  placeholder="Name,Email,Phone Number" id="Application_search" >    
                 </div>  
                 </div>

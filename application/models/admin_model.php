@@ -46,6 +46,14 @@ class Admin_model extends CI_Model{
 		//return $classes.$section.$academic_year;
 	return $this->db->query("SELECT * FROM student where academic_year='$academic_year' AND seeking_grade='$classes' AND section='$section'")->result_array();
 	}
+
+	function GetClassStudentss(){
+		//$academic_year=$this->input->post("years");
+		$classes=$this->input->post("classes");
+		$section=$this->input->post("section");
+		//return $classes.$section.$academic_year;
+	return $this->db->query("SELECT * FROM student where seeking_grade='$classes' AND section='$section'")->result_array();
+	}
 	public function Registration(){
 		$data['name']=$this->input->post("name");
 		
@@ -103,6 +111,22 @@ public function GetStudentLists($academic_year,$classes,$section)
 	public function GetStaffDetails()
 	{
 		return $this->db->query("SELECT * FROM staff")->result_array();
+	}
+
+
+public function getexstudentList()
+	{
+		return $this->db->query("SELECT * FROM exstudent")->result_array();
+	}
+	
+public function GetexStaffDetails()
+	{
+		return $this->db->query("SELECT * FROM exstaff")->result_array();
+	}
+
+public function getexfacultyList()
+	{
+		return $this->db->query("SELECT * FROM exteacher")->result_array();
 	}
 
 	
@@ -313,6 +337,47 @@ public function GetStudentLists($academic_year,$classes,$section)
 	}
 	
 	
+		function updatestudent($student_id){
+		$data['branch_id']=$this->session->userdata("branch_id");
+		$data["Name"]=$this->input->post("Name");		
+		$data["mobile"]=$this->input->post("mobile");
+		$data["session"]=$this->input->post("session");
+		$data["gender"]=$this->input->post("gender");		
+		$data["temp"]=$this->input->post("temp");
+		$data["permanent"]=$this->input->post("permanent");
+		$url=$this->input->post("url");
+		if(!empty($url)){
+			$emptyUrl=$this->db->query("select * from student where student_id=$student_id ")->result_array();
+			foreach ($emptyUrl as $row){
+				$url=$row["profile_url"];
+			}
+			unlink($url);
+		$config['upload_path'] = './img/Teacher/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '150000';
+		
+		
+		$this->load->library('upload', $config);
+		
+		if ($this->upload->do_upload('file'))
+		{
+			$doc=$this->upload->data();
+			$document=$doc['file_name'];
+			$url="img/Teacher/".$document;
+			$data['profile_url']=$url;
+		
+		}else echo $this->upload->display_errors();
+	}
+		$this->db->set($data);
+		$this->db->where("student_id",$student_id);
+		$this->db->update("student",$data);
+		//$this->db->where("teacher_id",$teacher_id);
+		
+		
+	}
+	
+	
+
 	
 	public function addnewFaculty()
 	{$alpha_numeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -361,6 +426,59 @@ public function GetStudentLists($academic_year,$classes,$section)
 		$this->send_mail($to, $subject, $message);
 		
 		
+	}
+
+
+	public function addnewexstaff()
+	{//$alpha_numeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	//$password =substr(str_shuffle($alpha_numeric), 0,4);
+	$data['branch_id']=$this->session->userdata("branch_id");
+	$name=$this->input->post("name");
+	$data["Name"]=$name;
+	$data["designation"]=$this->input->post("designation");
+	$data["phone"]=$this->input->post("phone");
+	$data["qualification"]=$this->input->post("qualification");
+	$data["gender"]=$this->input->post("gender");
+	//$data["specilization"]=$this->input->post("specilization");
+	$email=$this->input->post("email");
+	$data["email"]=$email;
+	$data["tempAddress"]=$this->input->post("temp");
+	$data["address"]=$this->input->post("permanent");
+	$data["joining_date"]=$this->input->post("joining");
+	
+	$config['upload_path'] = './img/Staff/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '150000';
+		
+		
+		$this->load->library('upload', $config);
+		
+		if ($this->upload->do_upload('file1'))
+		{
+			$doc=$this->upload->data();
+			$document=$doc['file_name'];
+			$url="img/Staff/".$document;
+			$data['profile_url']=$url;
+		
+		}
+
+		else echo $this->upload->display_errors();
+	$this->db->insert("exstaff",$data);
+	/*
+	$data1['email']=$email;
+	$data1['name']=$name;
+	$data1['password']=$password;
+	$data1['role_type']="Teacher";
+	$data1['is_verify']=0;
+	$data1['isActive']=0;
+	$this->db->insert("login",$data1);
+	
+	$to=$email;
+	//$subject="Welcome to school Management system for login ";
+	$message="Your user name=".$email ."<br> Your Password is =".$password;
+	$this->send_mail($to, $subject, $message);
+	*/
+	
 	}
 
 
@@ -480,12 +598,81 @@ public function addnewstudent()
 	}
 
 
+
+	
+public function exaddnewstudent()
+	{
+		$alpha_numeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		//$password =substr(str_shuffle($alpha_numeric), 0,4);
+		$data['branch_id']=$this->session->userdata("branch_id");
+		$data["fname"]=$this->input->post("fname");
+		$data["lname"]=$this->input->post("lname");
+		$data["gender"]=$this->input->post("gender");
+		
+		$data["seeking_grade"]=$this->input->post("Seeking_grade");
+		$data["academic_year"]=$this->input->post("AcademicYear");
+		$data["dob"]=$this->input->post("dob");
+		$data["language"]=$this->input->post("MotherTongue");
+		$data["religion"]=$this->input->post("Religion");
+		$data["blood_group"]=$this->input->post("BloodGroup");
+		$data["nationality"]=$this->input->post("nationality");
+
+		$data["temp_address"]=$this->input->post("temp");
+		$data["parmanent_address"]=$this->input->post("permanent");
+		$data["phone"]=$this->input->post("phone");
+		$data["email"]=$this->input->post("email");
+		//$data["url"]=$this->input->post("designation");
+		$data["previous_school"]=$this->input->post("schoolname");
+		$data["percentage"]=$this->input->post("Percentage");
+		$data["previous_school_address"]=$this->input->post("SchoolAddress");
+		$data["previous_school_phone"]=$this->input->post("telephone");
+
+		$data["father_name"]=$this->input->post("fathername");
+		$data["father_qualification"]=$this->input->post("fqualification");
+		$data["father_occupation"]=$this->input->post("foccupation");
+		$data["mother_name"]=$this->input->post("mothername");
+		$data["mother_occupation"]=$this->input->post("moccupation");
+		$data["mother_qualification"]=$this->input->post("mqualification");
+		$data["annual_income"]=$this->input->post("aincome");
+		$data["parents_mobile_number"]=$this->input->post("fmobile");
+		$data["parents_email"]=$this->input->post("femail");
+		
+		
+		
+		$config['upload_path'] = './img/Student/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '150000';
+		
+		
+		$this->load->library('upload', $config);
+		
+		if ($this->upload->do_upload('file'))
+		{
+			$doc=$this->upload->data();
+			$document=$doc['file_name'];
+			$url="img/ex-Student/".$document;
+			$data['url']=$url;
+			echo $url;
+		
+		}
+		else echo $this->upload->display_errors();
+		$this->db->insert("exstudent",$data);
+		
+	
+	
+	}
+
+
 	
 	public function AllTeacher($branch_id)
 	{
 		return $this->db->query("Select * from teacher where branch_id=$branch_id")->result_array();
 	}
 	
+	public function AllexTeacher($branch_id)
+	{
+		return $this->db->query("Select * from exteacher where branch_id=$branch_id")->result_array();
+	}
 	
 	public function deletes($teacher_id)
 	{
@@ -508,11 +695,44 @@ public function addnewstudent()
 	{
 		return $this->db->query("select * from staff where staff_id=$staff_id")->result_array();
 	}
+
+
+	public function exteacherMail($teacher_id)
+	{
+		return $this->db->query("select * from exteacher where teacher_id=$teacher_id")->result_array();
+	}
+
+
 	
-	public function studentMail($student_id)
+	
+	public function facultyMail($teacher_id)
+	{
+		return $this->db->query("select * from teacher where teacher_id=$teacher_id")->result_array();
+	}
+
+   public function studentMail($student_id)
 	{
 		return $this->db->query("select * from student where student_id=$student_id")->result_array();
 	}
+
+     public function exstudentMail($student_id)
+	{
+		return $this->db->query("select * from exstudent where student_id=$student_id")->result_array();
+	}
+
+
+	public function ExstaffMail($staff_id)
+	{
+		return $this->db->query("select * from exstaff where staff_id=$staff_id")->result_array();
+	}
+
+
+
+  public function exfacultyMail($teacher_id)
+	{
+		return $this->db->query("select * from exteacher where teacher_id=$teacher_id")->result_array();
+	}
+
 	
 	public function Search()
 	{
@@ -736,25 +956,40 @@ function deletesInventorys($id){
 		if($month!=0)
 		{
 
-			if($month <=7)
+			if($month < 7)
 			{
-				$y=substr($academic,0,4);
-				$dat=$y."-".$month;
+				
+				$y=substr($academic,-4);
+				if($month<10)
+					$dat=$y."-0".$month;
+				else
+					$dat=$y."-".$month;
 				//$d=date_create($dat);
 				//$dat=date_format($d,"y-m");	
-				return $this->db->query("SELECT * FROM inventory WHERE branch_id=$branch_id dates LIKE '$dat%' ")->result_array();
+				return $this->db->query("SELECT * FROM inventory WHERE branch_id=$branch_id AND dates LIKE '$dat%' ")->result_array();
+
 				//echo $dat;
 
 			}
 			else{
-					$y=substr($academic,-4);
-					$dat=$y."-".$month;
+					$y=substr($academic,0,4);
+					if($month<10)
+					$dat=$y."-0".$month;
+					else
+						$dat=$y."-".$month;
 					//$d=date_create($dat);
 					//$dat=date_format($d,"y-m");
 					//return $dat;				
 	return $this->db->query("SELECT * FROM inventory WHERE branch_id=$branch_id AND dates LIKE '$dat%' ")->result_array();
 
 			}
+		}
+		else
+		{
+
+			$y=substr($academic,0,4);
+			$s=substr($academic,-4);
+			return $this->db->query("SELECT * FROM inventory WHERE branch_id=$branch_id AND date ")->result_array();
 		}
 
 	}

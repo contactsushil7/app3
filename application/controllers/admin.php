@@ -53,6 +53,20 @@ class Admin extends CI_Controller {
 		//print_r($result);
 	}
 
+public function GetClassStudentss()
+	{
+		$result = $this->admin_model->GetClassStudentss();
+		$output="";
+		$output.='<option value="0">Choose a Student</option>';
+		foreach ($result as $row) {
+			# code...
+				$output.=' <option value="'.$row['student_id'].'">'.$row['fname'].' '.$row['lname'].'</option>';
+		}
+		echo $output;
+//echo "sushil";
+		//print_r($result);
+	}
+
 
 	function addnewInventory()
 	{
@@ -310,6 +324,24 @@ class Admin extends CI_Controller {
 			redirect('admin/index');
 		}
 	}
+
+
+
+	public function viewexstudent()
+	{
+		$user=$this->session->userdata("userid");
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
+			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+			$data["exstudentList"]=$this->admin_model->getexstudentList();
+		$this->load->view('header',$data);
+		$this->load->view('viewexstudent',$data);
+		$this->load->view('js');
+		}else{
+			redirect('admin/index');
+		}
+	}
+
 	
 	public function viewStaff()
 	{
@@ -326,6 +358,23 @@ class Admin extends CI_Controller {
 		}
 	}
 	
+
+
+public function view_ex_staff()
+	{
+		$user=$this->session->userdata("userid");
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
+			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+			$data["exStaffList"]=$this->admin_model->GetexStaffDetails();
+		$this->load->view('header',$data);
+		$this->load->view('view_ex_staff');
+		$this->load->view('js');
+		}else{
+			redirect('admin/index');
+		}
+	}
+
 	public function Ex_Faculty()
 	{
 		$user=$this->session->userdata("userid");
@@ -473,6 +522,7 @@ class Admin extends CI_Controller {
 		}
 		
 		//echo $teacher_id;
+		redirect('admin/StudentAttendence');
 	}
 	
 	public function view_attendence()
@@ -590,12 +640,62 @@ class Admin extends CI_Controller {
 		$this->admin_model->addnewstaff();
 	//	redirect("admin/newStaff");
 	}
+
+	public function addnewexstaff()
+	{
+		$this->admin_model->addnewexstaff();
+		redirect("admin/new_ex_staff");
+	}
+
+
+public function new_ex_staff()
+	{
+		$user=$this->session->userdata("userid");
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
+			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+		$this->load->view('header',$data);
+		$this->load->view('new_ex_staff');
+		$this->load->view('js');
+		}else{
+			redirect('admin/index');
+		}
+	}
+
+
 	public function addnewStudent()
 	{
 		$this->admin_model->addnewStudent();
 		redirect("admin/newStudent");
 	}
 	
+
+
+
+	public function exaddnewStudent()
+	{
+		$this->admin_model->exaddnewStudent();
+		redirect("admin/ex_newstudent");
+	}
+
+
+	public function ex_newStudent()
+	{
+		$user=$this->session->userdata("userid");
+		$role_type=$this->session->userdata("role_type");
+		if($user!="" && $role_type=="Branch_Admin"){
+			$data["loginPersonInfo"]=$this->admin_model->getPersonDetails($user);
+			$data['class_id']=$this->admin_model->getClass();
+			$this->load->view('header',$data);
+		$this->load->view('ex_student');
+		$this->load->view('js');
+		}else{
+			redirect('admin/index');
+		}
+	}
+
+
+
 	public function deletes()
 	{
 		$teacher_id=$this->input->post("id");
@@ -649,6 +749,47 @@ class Admin extends CI_Controller {
 		}
 	}
 	
+
+	public function ViewexFacultyDetail(){
+		$teacher_id=$this->input->post("id");
+		$result=$this->admin_model->exteacherMail($teacher_id);
+		$output="";
+		foreach ($result as $row)
+		{
+			$output.='<div class="block-fluid">
+			
+			<table cellpadding="0" cellspacing="0" width="100%" class="sTable">
+			<tbody>
+			 
+			
+			<tr>
+			<td align="center">';
+			$output.='<img src="'.  base_url().$row['profile_url'].'" class="img-polaroid" height="100px"  width="100px">';
+			$output.='<address>'.$row['Name'].	'<br>'.
+			'<a href="mailto:#">'.$row['email'].'</a>
+			<address>
+			<strong>'.$row["permanent"].'<br>
+			<abbr title="Phone">P:</abbr>'.$row['phone'].'
+			</address>
+			</address>
+			
+			<button class="btn btn-primary tipl" data-original-title="Send message"><span class="icon-envelope icon-white"></span></button>
+			<button class="btn btn-primary tipl" data-original-title="Edit"><span class="icon-pencil icon-white"></span></button>
+			<button class="btn btn-primary tipl" data-original-title="Remove"><span class="icon-remove icon-white"></span></button>
+			
+			</td>
+			</tr>
+			
+			</tbody>
+			</table>
+			
+			</div>';
+			
+			echo $output;
+		}
+	}
+
+
 	
 	public function ViewStaffDetail(){
 		$staff_id=$this->input->post("id");
@@ -1371,7 +1512,7 @@ function viewInventoryDetails()
 							"<span>Due Amount : ".$row['due_payment'].'</span><br>'.
 
 							"<span>Due Payment date :".$row['payment_due_date'].'</span><br>'.
-							"<span>Expense date :".$row['date'].'</span><br>'.
+							"<span>Expense date :".$row['dates'].'</span><br>'.
 			'
 			
 			</td>
@@ -1405,7 +1546,7 @@ function Inventory_search()
 										<td>'.$row["expences_catogery"].'</a></td>
 										<td><'.$row["description_of_expence"].'</td>
 										<td>'.$row["expence_amount"].'</span></td>
-										<td>'.$row["date"].'</td>
+										<td>'.$row["dates"].'</td>
 										<td class="TAC">
                                             <a class="action1 tip" title="View Detail" id="'.$row['id'].'"  onClick="viewInventory(this.id)" href="#bModal" data-toggle="modal"><span class="icon-ok"></span></a> 
                                             <a class="action2" id="'.$row['id'].'"  href="'.site_url('admin/editInventory/'.$row['id']).'"><span class="icon-pencil"></span></a> 
@@ -1454,24 +1595,58 @@ public function InventoryReport()
 	function getInventoryList()
 	{
 		$result=$this->admin_model->getInventoryList();
+		$totalDue=0;
+		$total=0;
+		$grandDue=0;
+		$grandTotal=0;
 		$output="";
 	foreach ($result as $row) {
+			$total=$row['expence_amount']+$row['tax'];
+			$totalDue+=$row['due_payment'];
+			$grandTotal+=$total;
 			$output.='<tr>
                         <td>'.$row["recipt_number"].'</td>
 										<td>'.$row["expences_catogery"].'</td>
 										<td>'.$row["description_of_expence"].'</td>
-										<td>'.$row["expence_amount"].'</span></td>
 										<td>'.$row["dates"].'</td>
-										<td class="TAC">
+										<td>'.$row["expence_amount"].'</span></td>
+										<td>'.$row["tax"].'</td>
+										<td>'.$row["due_payment"].'</td>
+										<td class="TAC">'.$total.'
                                             
                                         </td>
 									</tr>';
 
 		}
+
+		$output.='
+				    <tr><td></td>
+				     <td></td>
+				     <td></td>
+				     <td></td>
+				     <td></td>
+
+				     <td></td>
+				      <th>Total Due</th>
+				      <th>Total Expense</th>
+				    </tr>
+
+				     <tr>
+				     <td></td>
+				     <td></td>
+				     <td></td>
+				     <td></td>
+				     <td></td>
+				     <td></td>
+				      <td>'.$totalDue.'</td>
+				      <td>'.$grandTotal.'</td>
+				    </tr>';
+				 
 		echo $output;
 		
 		//echo $result;
 	}
+
 
 
 }

@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />        
     <![endif]-->        
     
-    <title>Virgo - Premium Admin Template</title>
+    <title>Student Fee Details</title>
     
     <link href="<?php echo base_url('css/stylesheets.css'); ?>" rel="stylesheet" type="text/css" />
     <!--[if lt IE 10]>
@@ -31,33 +31,49 @@
                     <h2>Fee Details</h2>                       
                 </div>   
                 <div class="block-fluid">
-                				<div class="span3">
+                				<div class="span2">
                 				
-                                    <select>
-                                    <option value="1">Choose a class</option>
-                                    <option value="1">Class 1</option>
-                                    <option value="1">Class 2</option>
-                                    <option value="1">Class 3</option>
-                                    <option value="1">Class 4</option>
-                                    <option value="1">Class 5</option>
-                                    <option value="1">Class 6</option>
-                                    <option value="7">Class 7</option>
-                                    <option value="7">Class 8</option>
+                                    <select input class="form-control input-md" name="Seeking_grade" id="classes_fee" onchange="GetStudentFee()">
+                                    <option value="none">Select</option>
+                                    <option value="LKG" >LKG  </option>
+                                    <option value="UKG" >UKG</option>
+                                    <option value="Class 1" >Class 1 </option>
+                                    <option value="Class 2" >Class 2</option>
+                                    <option value="Class 3" >Class  3</option>
+                                    <option value="Class 4" >Class 4</option>
+                                    <option value="Class 5" >Class 5 </option>
+                                    <option value="Class 6" >Class 6</option>
+                                    <option value="Class 7" >Class 7</option>
+                                    <option value="Class 8" >Class 8</option>
+                                    <option value="Class 9" >Class 9</option>
+                                    <option value="Class 11" >Class 11</option>
+                                    
                                     </select>
                                      
                                 </div>
-                                <div class="span3">
-									<div class="input-prepend">
-                                    <span class="add-on" style="background-color:#fff;margin-left:20px;"><i class="icosg-search"></i></span>
-                                    <input type="text" style="width: 102px;"  placeholder="Name,Number">                            
-									</div> 
+                                <div class="span2">
+									 <select input class="form-control input-md" name="Seeking_grade" id="section_fee" onchange="GetStudentFee()">
+                                     <option value="0">choose a Section</option>
+                                                    <option value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                    <option value="D">D</option>
+                                                    <option value="E">E</option>
+                                                                                                                                                
+                                    </select> 
 								</div> 
-								<div class="span3">
-									<div class="input-prepend">
-                                    <span class="add-on" style="background-color:#fff;margin-left:20px;"><i class="icosg-search"></i></span>
-                                    <input type="text" style="width: 102px;"  placeholder="date">                                                     
-									</div> 
-                                </div>
+
+                                <div class="span2">
+                                     <select input class="form-control input-md" name="fee_session" id="fee_session" onchange="GetStudentFee()">
+                                     <option value="0">Choose Session</option>
+                                                    <option value="07-11">July-October</option>
+                                                    <option value="11-03">November-february</option>
+                                                    <option value="03-07">March -June</option>
+                                                  
+                                                                                                                                                
+                                    </select> 
+                                </div> 
+								
                 </div>
                 
                             
@@ -84,96 +100,6 @@
                                        
                                     </tr>
                                     
-                                    <tr>
-                                        <td><a href="#bModal"  data-toggle="modal">2016_R2</a></td>
-                                        
-                                        <td><span >Sushil</span></td>
-                                        <td>4000</td>
-                                        <td>1000</td>
-                                        <td>5000</td>
-                                       
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#bModal"  data-toggle="modal">2016_R3</a></td>
-                                        
-                                        <td><span >Shiv Govind</span></td>
-                                        <td>2000</td>
-                                        <td>3000</td>
-                                        <td>5000</td>
-                                       
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#bModal"  data-toggle="modal">2016_R5</a></td>
-                                        
-                                        <td><span >Shiv </span></td>
-                                        <td>2000</td>
-                                        <td>3000</td>
-                                        <td>5000</td>
-                                       
-                                    </tr>
-                                    <tr>
-                                       <td><a href="#bModal"  data-toggle="modal">2016_R6</a></td>
-                                        
-                                        <td><span >Swati Reddy</span></td>
-                                        <td>3000</td>
-                                        <td>2000</td>
-                                        <td>5000</td>
-                                       
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#bModal"  data-toggle="modal">2016_R7</a></td>
-                                        
-                                        <td><span >Uday</span></td>
-                                        <td>4000</td>
-                                        <td>1000</td>
-                                        <td>5000</td>
-                                       
-                                    </tr>
-                                    <tr>
-                                       <td><a href="#bModal"  data-toggle="modal">2016_R6</a></td>
-                                        
-                                        <td><span >Swati Reddy</span></td>
-                                        <td>3000</td>
-                                        <td>2000</td>
-                                        <td>5000</td>
-                                       
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">2016_R6</a></td>
-                                        
-                                        <td><span >Swati Reddy</span></td>
-                                        <td>3000</td>
-                                        <td>2000</td>
-                                        <td>5000</td>
-                                       
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#bModal"  data-toggle="modal">2016_R6</a></td>
-                                        
-                                        <td><span >Swati Reddy</span></td>
-                                        <td>3000</td>
-                                        <td>2000</td>
-                                        <td>5000</td>
-                                       
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#bModal"  data-toggle="modal">2016_R6</a></td>
-                                        
-                                        <td><span >Swati Reddy</span></td>
-                                        <td>3000</td>
-                                        <td>2000</td>
-                                        <td>5000</td>
-                                       
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#bModal"  data-toggle="modal">2016_R6</a></td>
-                                        
-                                        <td><span >Swati Reddy</span></td>
-                                        <td>3000</td>
-                                        <td>2000</td>
-                                        <td>5000</td>
-                                       
-                                    </tr>
                                     
                                     
                                                          

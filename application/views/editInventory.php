@@ -13,7 +13,7 @@
     
     <link href="<?php echo base_url('css/stylesheets.css'); ?>" rel="stylesheet" type="text/css" />
     <!--[if lt IE 10]>
-        <link href="<?php echo base_url('css/ie.css');?>" rel="stylesheet" type="text/css" />
+        <link href="<?php //echo base_url('css/ie.css');?>" rel="stylesheet" type="text/css" />
     <![endif]-->       
     <link rel="icon" type="image/ico" href="<?php echo base_url('favicon.ico');?>"/>
       
@@ -99,7 +99,7 @@
                             
                             <div class="span2">Date</div>
                             <div class="span3">                                                            
-                                <input type="text"  name="date"class="datepicker hasDatepicker" id="dp1453972527352" value="<?php echo $row['date'];?>">
+                                <input type="text"  name="date"class="datepicker hasDatepicker" id="dp1453972527352" value="<?php echo $row['dates'];?>">
                             </div>
                        
                         </div>

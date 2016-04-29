@@ -40,17 +40,17 @@
             <li><a href="#samples"><span class="icom-box-add"></span><span class="text">Attendence</span></a></li>
             <li><a href="#other"><span class="icom-star1"></span><span class="text">Inventory</span></a></li>
        		<?php }else{if($role=="Student"){?>
-       				 <li><a href="<?php echo site_url('admin/myhomework');?>"><span class="icosg-pencil"></span><span class="text">Homework</span></a></li>
+       				<!-- <li><a href="<?php //echo site_url('admin/myhomework');?>"><span class="icosg-pencil"></span><span class="text">Homework</span></a></li>-->
           			  <li><a href="<?php echo site_url('admin/playGame');?>"><span class="icosg-cars"></span><span class="text">Play Games</span></a></li>
-           			 <li><a href="#"><span class="icosg-chat"></span><span class="text">Feedback</span></a></li>
+           			<!-- <li><a href="#"><span class="icosg-chat"></span><span class="text">Feedback</span></a></li> -->
             		 <li><a href="#Blogs"><span class="icosg-feed"></span><span class="text">Blog</span></a></li>
            <li><a href="<?php echo site_url('admin/college')?>"><span class="icom-user"></span><span class="text">Create College</span></a></li>
             <li><a href="<?php echo site_url('admin/branches')?>"><span class="icom-user"></span><span class="text">Create Branch</span></a></li>
            
        		<?php }else{?>
-       					<li><a href="<?php echo site_url('admin/myhomework');?>"><span class="icom-user"></span><span class="text">Assign  Homework</span></a></li>
-          			  <li><a href="#"><span class="icom-user"></span><span class="text">Check Homework</span></a></li>
-           			 <li><a href="#"><span class="icom-user"></span><span class="text">Feedback</span></a></li>
+       					<!--<li><a href="<?php// echo site_url('admin/myhomework');?>"><span class="icom-user"></span><span class="text">Assign  Homework</span></a></li> -->
+          			 <!-- <li><a href="#"><span class="icom-user"></span><span class="text">Check Homework</span></a></li>-->
+           			 <!--<li><a href="#"><span class="icom-user"></span><span class="text">Feedback</span></a></li>-->
             <li><a href="<?php echo site_url('admin/StudentAttendence')?>"><span class="icom-user"></span><span class="text">Attendence</span></a></li>
             
        		
@@ -101,32 +101,33 @@
                 <div class="menu">
                     <a href="<?php echo site_url('admin/newFaculty')?>"><span class="icon-user"></span>Add New</a>
                     <a href="<?php echo site_url('admin/viewFaculty')?>"><span class="icon-chevron-right"> </span>View Faculty</a>
-                    <a href="<?php echo site_url('admin/Ex_Faculty')?>"><span class="icon-th-large"></span> Ex-Faculty</a>                    
+                    <a href="<?php echo site_url('admin/Ex_Faculty')?>"><span class="icon-th-large"></span> View Ex-Faculty</a>                    
                     
                 </div>                                
                                   
                                  
                
-            </div>            
+            </div>          
             
             <div id="forms">                                                
                 <div class="menu">
                    <a href="<?php echo site_url('admin/newStaff')?>"><span class="icon-user"></span>Add New</a>
                     <a href="<?php echo site_url('admin/viewStaff')?>"><span class="icon-chevron-right"> </span>View Staff</a>
-                    <a href="<?php echo site_url('admin/Ex_Staff')?>"><span class="icon-th-large"></span> Ex-Staff</a>                    
-                    <a href="<?php echo site_url('admin/timeTable')?>"><span class="icon-th"></span> Form grid system</a>
+                     <a href="<?php echo site_url('admin/view_ex_staff')?>"><span class="icon-th"></span>View Ex-Staff</a>
+                            <a href="<?php echo site_url('admin/new_ex_staff')?>"><span class="icon-th-large"></span> Entry Ex-Staff</a>                    
+            
                     <a href="editor.html"><span class="icon-pencil"></span> Editors</a>
                 </div>                                                                
                              
-            </div>             
+            </div>                
             
-            <div id="tables">
+          <div id="tables">
                                                 
                  <div class="menu">
                     <a href="<?php echo site_url('admin/newStudent')?>"><span class="icon-user"></span>Add New</a>
                     <a href="<?php echo site_url('admin/viewStudent')?>"><span class="icon-chevron-right"> </span>View Student</a>
-                    <a href="<?php echo site_url('admin/AlluminiEntry')?>"><span class="icon-th-large"></span> Allumini Entry</a>                                        
-				   <a href="<?php echo site_url('admin/Allumini')?>"><span class="icon-th-large"></span> Allumini</a>                    
+                    <a href="<?php echo site_url('admin/ex_newStudent')?>"><span class="icon-th-large"></span>Ex-Student</a>                                        
+                   <a href="<?php echo site_url('admin/viewexstudent')?>"><span class="icon-th-large"></span> View Ex-Sttudents</a>                    
                    
                 </div>                                
                          
@@ -146,7 +147,7 @@
                 </div>         
                 <div class="dr"><span></span></div>
                
-            </div>                          
+            </div>                            
             
             <div id="stats">
                 
@@ -164,8 +165,8 @@
              <div id="fee">
                 <div class="menu">
                     <a href="<?php echo site_url('admin/StudentFeePayment')?>"><span class="icon-refresh"></span> Fee Payments</a>                  
-					<a href="<?php echo site_url('admin/FeeDetails')?>"><span class="icon-user"></span>Fee Dues</a>              					
-					<a href="mailbox.html"><span class="icon-envelope"></span> Due Fee Report</a>             
+                    <a href="<?php echo site_url('admin/FeeDetails')?>"><span class="icon-user"></span>Fee Dues</a>                                 
+                	<a href="mailbox.html"><span class="icon-envelope"></span> Due Fee Report</a>             
                     <a href="users.html"><span class="icon-align-justify"></span>Fee Collection Report</a>
                
                 </div>                
